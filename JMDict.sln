@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMDict", "JMDict.csproj", "{FA9BE93E-353F-416E-AB1F-F42E0C97B83B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA9BE93E-353F-416E-AB1F-F42E0C97B83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9BE93E-353F-416E-AB1F-F42E0C97B83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9BE93E-353F-416E-AB1F-F42E0C97B83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9BE93E-353F-416E-AB1F-F42E0C97B83B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7142073-C40B-4E27-9C58-7D101EC58874}
+	EndGlobalSection
+EndGlobal
