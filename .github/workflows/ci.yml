@@ -25,6 +25,12 @@ jobs:
       - name: Check file permissions
         run: ls -l .build/GetBuildVersion.psm1
 
+      - name: Add executable permissions to file
+        run: chmod u+x ./build/GetBuildVersion.psm1
+
+      - name: Check file permissions again
+        run: ls -l .build/GetBuildVersion.psm1
+
       - name: Get Build Version
         run: |
           Import-Module .build/GetBuildVersion.psm1
