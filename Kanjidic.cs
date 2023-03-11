@@ -26,7 +26,7 @@ namespace JMDict
         /// character.
         /// </summary>
         [XmlElement("character")]
-        public KanjidicCharacter[]? Characters { get; set; }
+        public List<KanjidicCharacter>? Characters { get; set; }
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ namespace JMDict
         /// and instructional books on kanji.
         /// </summary>
         [XmlElement("dic_number")]
-        public KanjidicDicNumber[]? DictionaryNumbers { get; set; }
+        public List<KanjidicDicNumber>? DictionaryNumbers { get; set; }
 
         /// <summary>
         /// These codes contain information relating to the glyph, and can be used
@@ -135,7 +135,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("cp_value")]
-        public KanjidicCodePointValue[]? Values { get; set; }
+        public List<KanjidicCodePointValue>? Values { get; set; }
     }
 
     /// <summary>
@@ -176,7 +176,7 @@ namespace JMDict
         /// classification type is stated in the rad_type attribute.
         /// </summary>
         [XmlElement("rad_value")]
-        public KanjidicRadicalValue[]? Values { get; set; }
+        public List<KanjidicRadicalValue>? Values { get; set; }
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("stroke_count")]
-        public string[]? StrokeCounts { get; set; }
+        public List<string>? StrokeCounts { get; set; }
 
         /// <summary>
         /// Either a cross-reference code to another kanji, usually regarded as a
@@ -244,7 +244,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("variant")]
-        public KanjidicVariant[]? Variants { get; set; }
+        public List<KanjidicVariant>? Variants { get; set; }
 
         /// <summary>
         /// A frequency-of-use ranking. The 2,500 most-used characters have a 
@@ -266,7 +266,7 @@ namespace JMDict
         /// contains the name(in hiragana.) [T2]
         /// </summary>
         [XmlElement("rad_name")]
-        public string[]? RadicalName { get; set; }
+        public List<string>? RadicalName { get; set; }
 
         /// <summary>
         /// The (former) Japanese Language Proficiency test level for this kanji.
@@ -331,7 +331,7 @@ namespace JMDict
         /// etc. is defined by the dr_type attribute.
         /// </summary>
         [XmlElement("dic_ref")]
-        public KanjidicDicRef[]? References { get; set; }
+        public List<KanjidicDicRef>? References { get; set; }
     }
 
     /// <summary>
@@ -425,7 +425,7 @@ namespace JMDict
         /// qc_type attribute.
         /// </summary>
         [XmlElement("q_code")]
-        public QueryCode[]? QueryCodes { get; set; }
+        public List<QueryCode>? QueryCodes { get; set; }
     }
 
     /// <summary>
@@ -500,13 +500,13 @@ namespace JMDict
         /// information for the kanji in different languages.
         /// </summary>
         [XmlElement("rmgroup")]
-        public ReadingMeaningGroup[]? ReadingMeaningGroups { get; set; }
+        public List<ReadingMeaningGroup>? ReadingMeaningGroups { get; set; }
 
         /// <summary>
         /// Japanese readings that are now only associated with names.
         /// </summary>
         [XmlElement("nanori")]
-        public string[]? Nanori { get; set; }
+        public List<string>? Nanori { get; set; }
     }
 
     /// <summary>
@@ -520,13 +520,13 @@ namespace JMDict
         /// of the kanji.
         /// </summary>
         [XmlElement("reading")]
-        public KanjidicReading[]? Readings { get; set; }
+        public List<KanjidicReading>? Readings { get; set; }
 
         /// <summary>
         /// The meaning associated with the kanji.
         /// </summary>
         [XmlElement("meaning")]
-        public KanjidicMeaning[]? Meanings { get; set; }
+        public List<KanjidicMeaning>? Meanings { get; set; }
     }
 
     /// <summary>

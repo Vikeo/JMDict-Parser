@@ -20,7 +20,7 @@ namespace JMDict
         /// least one reading element and one sense element.Others are optional.
         /// </summary>
         [XmlElement("entry")]
-        public JmnedictEntry[]? Entries { get; set; }
+        public List<JmnedictEntry>? Entries { get; set; }
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("k_ele")]
-        public JmnedictKanji[]? Kanji { get; set; }
+        public List<JmnedictKanji>? Kanji { get; set; }
 
         /// <summary>
         /// The reading element typically contains the valid readings
@@ -67,14 +67,14 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("r_ele")]
-        public JmnedictReading[]? Readings { get; set; }
+        public List<JmnedictReading>? Readings { get; set; }
 
         /// <summary>
         /// The trans element will record the translational equivalent
         /// of the Japanese name, plus other related information.
         /// </summary>
         [XmlElement("trans")]
-        public JmnedictTranslation[]? Sense { get; set; }
+        public List<JmnedictTranslation>? Sense { get; set; }
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ namespace JMDict
         /// aspect, such as okurigana irregularity.
         /// </summary>
         [XmlElement("ke_inf")]
-        public string[]? Information { get; set; }
+        public List<string>? Information { get; set; }
 
         /// <summary>
         /// This and the equivalent re_pri field are provided to record
@@ -125,7 +125,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("ke_pri")]
-        public string[]? Priorities { get; set; }
+        public List<string>? Priorities { get; set; }
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("re_restr")]
-        public string[]? Restrictions { get; set; }
+        public List<string>? Restrictions { get; set; }
 
         /// <summary>
         /// General coded information pertaining to the specific reading.
@@ -168,7 +168,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("re_inf")]
-        public string[]? Information { get; set; }
+        public List<string>? Information { get; set; }
 
         /// <summary>
         /// This and the equivalent ke_pri field are provided to record
@@ -182,7 +182,7 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("re_pri")]
-        public string[]? Priorities { get; set; }
+        public List<string>? Priorities { get; set; }
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ namespace JMDict
         /// The type of name, recorded in the appropriate entity codes.
         /// </summary>
         [XmlElement("name_type")]
-        public string[]? NameTypes { get; set; }
+        public List<string>? NameTypes { get; set; }
 
         /// <summary>
         /// This element is used to indicate a cross-reference to another
@@ -203,20 +203,20 @@ namespace JMDict
         /// <para>
         /// The content of this element is typically a keb or reb element in another entry. In some
         /// cases a keb will be followed by a reb and/or a sense number to provide
-        /// a precise target for the cross-reference.Where this happens, a JIS
+        /// a precise target for the cross-reference. Where this happens, a JIS
         /// "centre-dot" (0x2126) is placed between the components of the
         /// cross-reference.
         /// </para>
         /// </summary>
         [XmlElement("xref")]
-        public string[]? References { get; set; }
+        public List<string>? References { get; set; }
 
         /// <summary>
         /// The actual translations of the name, usually as a transcription
         /// into the target language.
         /// </summary>
         [XmlElement("trans_det")]
-        public string[]? Translations { get; set; }
+        public List<string>? Translations { get; set; }
 
         /// <summary>
         /// The xml:lang attribute defines the target language of the
