@@ -23,15 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get Build Version
-        id: get_version
-        run: |
-          echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p')"
-        shell: bash
-
-      - name: Print version
-        run: echo ${{ steps.get_version.outputs.version }}
-
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
 
