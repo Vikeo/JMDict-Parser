@@ -1,4 +1,4 @@
-name: CI
+name: CIp
 
 on:
   create:
@@ -20,6 +20,8 @@ jobs:
       SOLUTION: JMDict.sln
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Get Build Version
         id: get_version
         run: |
@@ -28,9 +30,6 @@ jobs:
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
-
-      - name: List files in working directory
-        run: ls
 
       - name: Restore dependencies
         run: nuget restore $SOLUTION
