@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>0.0.1</version>
+    <authors>vikeo</authors>
+    <owners />
+    <id>JMDict</id>
+    <title />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A class library.</description>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="bin\Debug\net7.0\JMDict.dll" target="lib\net7.0\JMDict.dll" />
+    <file src="..\README.md" target="docs\" />
+  </files>
+</package>
