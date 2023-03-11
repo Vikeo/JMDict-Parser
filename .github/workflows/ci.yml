@@ -29,6 +29,9 @@ jobs:
           echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p')"
         shell: bash
 
+      - name: Print version
+        run: echo ${{ steps.get_version.outputs.version }}
+
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
 
@@ -41,10 +44,7 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
-
-      - name: Set version
-        run: dotnet add package JMDict --version 0.0.1
+        run: dotnet build /p:Version=${{ env.NUGET_VERSION }} $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
