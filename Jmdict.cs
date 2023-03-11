@@ -7,9 +7,18 @@ using System.Xml.Serialization;
 
 namespace JMDict
 {
+    /// <summary>
+    /// The root JMdict element.
+    /// </summary>
     [Serializable, XmlRoot("JMdict")]
     public class Jmdict : IDict
     {
+        /// <summary>
+        /// <para>Entries consist of kanji elements, reading elements,
+        /// general information and sense elements.</para>
+        /// Each entry must have at least one reading element and one 
+        /// sense element. Others are optional.
+        /// </summary>
         [XmlElement("entry")]
         public JmdictEntry[] Entries { get; set; }
     }
@@ -17,8 +26,8 @@ namespace JMDict
     /// <summary>
     /// <para>Entries consist of kanji elements, reading elements,
     /// general information and sense elements.</para>
-    /// Each entry must have at
-    /// least one reading element and one sense element. Others are optional.
+    /// Each entry must have at least one reading element and one 
+    /// sense element. Others are optional.
     /// </summary>
     public class JmdictEntry
     {
@@ -187,7 +196,7 @@ namespace JMDict
         /// must exactly match those of one of the keb elements.
         /// </summary>
         [XmlElement("re_restr")]
-        public string[] Restrictions { get; set; }
+        public string[]? Restrictions { get; set; }
 
         /// <summary>
         /// General coded information pertaining to the specific reading.
