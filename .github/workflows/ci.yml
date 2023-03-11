@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  create:
+    branches:
+      - release/**
   push:
     branches:
       - main
@@ -10,32 +13,40 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     env:
-      BUILD_CONFIG: Release
-      SOLUTION: JMDict.sln
+      BUILD_CONFIG: "Release"
+      SOLUTION: "JMDict.sln"
+
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Get Build Version
         run: |
-          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "fallback-$(date '+%Y%m%d-%H%M%S')") 
-          echo "BUILD_VERSION=$TAG-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          Import-Module .\build\GetBuildVersion.psm1
+          Write-Host $Env:GITHUB_REF
+          $version = GetBuildVersion -VersionString $Env:GITHUB_REF
+          echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+        shell: pwsh
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 7.x
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.1.1
 
       - name: Restore dependencies
-        run: dotnet restore ${{ env.SOLUTION }}
+        run: nuget restore $SOLUTION
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
 
       - name: Build
-        run: dotnet build ${{ env.SOLUTION }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
+        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+
+      # - name: Run tests
+      #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
 
       - name: Publish
-        if: github.event.pull_request.merged == true
-        run: |
-          nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
+        if: startsWith(github.ref, 'refs/heads/release')
+        run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
