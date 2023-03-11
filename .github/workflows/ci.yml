@@ -13,31 +13,17 @@ on:
 
 jobs:
   build:
-    env:
-      BUILD_CONFIG: "Release"
-      SOLUTION: "JMDict.sln"
-
     runs-on: ubuntu-latest
+    env:
+      BUILD_CONFIG: Release
+      SOLUTION: JMDict.sln
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Check file permissions
-        run: ls -l .build/GetBuildVersion.psm1
-
-      - name: Add executable permissions to file
-        run: chmod u+x .build/GetBuildVersion.psm1
-
-      - name: Check file permissions again
-        run: ls -l .build/GetBuildVersion.psm1
-
       - name: Get Build Version
+        id: get_version
         run: |
-          Import-Module .build/GetBuildVersion.psm1
-          Write-Host $Env:GITHUB_REF
-          $version = GetBuildVersion -VersionString $Env:GITHUB_REF
-          echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-        shell: pwsh
+          echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p')"
+        shell: bash
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
@@ -53,9 +39,8 @@ jobs:
       - name: Build
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
-      # - name: Run tests
-      #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
-
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
         run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        env:
+          NUGET_VERSION: ${{ steps.get_version.outputs.version }}
