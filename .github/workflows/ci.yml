@@ -1,4 +1,4 @@
-name: CIp
+name: CI
 
 on:
   create:
