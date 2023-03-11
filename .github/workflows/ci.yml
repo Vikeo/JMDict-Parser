@@ -30,7 +30,7 @@ jobs:
         uses: NuGet/setup-nuget@v1.1.1
 
       - name: List files in working directory
-        run: ls -al
+        run: ls
 
       - name: Restore dependencies
         run: nuget restore $SOLUTION
