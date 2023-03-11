@@ -8,10 +8,10 @@ using System.Xml.Serialization;
 namespace JMDict
 {
     /// <summary>
-    /// The root JMdict element.
+    /// The root JMDict element.
     /// </summary>
     [Serializable, XmlRoot("JMdict")]
-    public class Jmdict : IDict
+    public class JMDict : IDict
     {
         /// <summary>
         /// <para>Entries consist of kanji elements, reading elements,
@@ -20,7 +20,7 @@ namespace JMDict
         /// sense element. Others are optional.
         /// </summary>
         [XmlElement("entry")]
-        public JmdictEntry[] Entries { get; set; }
+        public JMDictEntry[] Entries { get; set; }
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ namespace JMDict
     /// Each entry must have at least one reading element and one 
     /// sense element. Others are optional.
     /// </summary>
-    public class JmdictEntry
+    public class JMDictEntry
     {
         /// <summary>
         /// A unique numeric sequence number for each entry
@@ -50,7 +50,7 @@ namespace JMDict
         /// cross-reference field associated with the sense element.
         /// </summary>
         [XmlElement("k_ele")]
-        public JmdictKanji[] Kanji { get; set; }
+        public JMDictKanji[] Kanji { get; set; }
 
         /// <summary>
         /// <para>
@@ -63,7 +63,7 @@ namespace JMDict
         /// entirely in kana, these elements will define the entry.
         /// </summary>
         [XmlElement("r_ele")]
-        public JmdictReading[] Readings { get; set; }
+        public JMDictReading[] Readings { get; set; }
 
         /// <summary>
         /// The sense element will record the translational equivalent
@@ -72,7 +72,7 @@ namespace JMDict
         /// sense elements will be employed.
         /// </summary>
         [XmlElement("sense")]
-        public JmdictSense[] SenseElements { get; set; }
+        public JMDictSense[] SenseElements { get; set; }
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ namespace JMDict
     /// fields. Synonyms are not included; they may be indicated in the
     /// cross-reference field associated with the sense element.
     /// </summary>
-    public class JmdictKanji
+    public class JMDictKanji
     {
         /// <summary>
         /// <para>
@@ -161,7 +161,7 @@ namespace JMDict
         public string[] Priorities { get; set; }
     }
 
-    public class JmdictReading
+    public class JMDictReading
     {
         /// <summary>
         /// <para>
@@ -256,7 +256,7 @@ namespace JMDict
     }
 
     /// </summary>
-    public class JmdictSource
+    public class JMDictSource
     {
         /// <summary>
         /// The content of the source item.
@@ -298,7 +298,7 @@ namespace JMDict
         public string Wasei { get; set; }
     }
 
-    public class JmdictGlossary
+    public class JMDictGlossary
     {
         /// <summary>
         /// The content of the glossary item.
@@ -331,7 +331,7 @@ namespace JMDict
 
         /// <summary>
         /// <para>
-        /// g_type attribute added in jmdict Rev 1.09
+        /// g_type attribute added in JMDict Rev 1.09
         /// At present the values used are "lit", "fig", "expl" and "tm".
         /// </para>
         /// It is
@@ -343,7 +343,7 @@ namespace JMDict
         public string Type { get; set; }
     }
 
-    public class JmdictSense
+    public class JMDictSense
     {
         /// <summary>
         /// This element, if present, indicate that the sense is restricted
@@ -425,7 +425,7 @@ namespace JMDict
         /// The element value (if any) is the source word or phrase.
         /// </summary>
         [XmlElement("lsource")]
-        public JmdictSource[] SourceLanguages { get; set; }
+        public JMDictSource[] SourceLanguages { get; set; }
 
         /// <summary>
         /// For words specifically associated with regional dialects in
@@ -456,23 +456,23 @@ namespace JMDict
         /// may be omitted in entries which are purely for a cross-reference.
         /// </summary>
         [XmlElement("gloss")]
-        public JmdictGlossary[] Glossary { get; set; }
+        public JMDictGlossary[] Glossary { get; set; }
 
         /// <summary>
-        /// Some JMdict entries can contain 0 or more examples
+        /// Some JMDict entries can contain 0 or more examples
         /// </summary>
         [XmlElement("example")]
-        public JmdictExample[] Examples { get; set; }
+        public JMDictExample[] Examples { get; set; }
     }
 
-    public class JmdictExample
+    public class JMDictExample
     {
         /// <summary>
         /// Each example has a Srce element that indicates the source of the example
         /// the source is typically the  Tatoeba Project
         /// </summary>
         [XmlElement("ex_srce")]
-        public JmdictExampleSource ExampleSource { get; set; }
+        public JMDictExampleSource ExampleSource { get; set; }
 
         /// <summary>
         /// The term associated with this example
@@ -484,10 +484,10 @@ namespace JMDict
         /// Contains the Example sentences
         /// </summary>
         [XmlElement("ex_sent")]
-        public JmdictExampleSentence[] Sentences { get; set; }
+        public JMDictExampleSentence[] Sentences { get; set; }
     }
 
-    public class JmdictExampleSource
+    public class JMDictExampleSource
     {
         /// <summary>
         /// The id of the example for the source
@@ -502,7 +502,7 @@ namespace JMDict
         public string SourceType { get; set; }
     }
 
-    public class JmdictExampleSentence
+    public class JMDictExampleSentence
     {
         /// <summary>
         /// The language of the example sentence

@@ -84,7 +84,7 @@ namespace JMDict
 
         [XmlText]
         public string Value { get; set; }
-        
+
         [XmlElement("re_restr")]
         public string[] Restrictions { get; set; }
 
@@ -105,7 +105,7 @@ namespace JMDict
 
         [XmlElement("variant")]
         public KanjidicVariant[] Variants { get; set; }
-        
+
         [XmlElement("freq")]
         public string Frequency { get; set; }
 
@@ -164,7 +164,7 @@ namespace JMDict
         [XmlAttribute("skip_misclass")]
         public string Misclassification { get; set; }
     }
-    
+
     public class KanjidicReadingMeaning
     {
         [XmlElement("rmgroup")]

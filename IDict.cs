@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace JMDict
 {
-    public interface IDict {}
+    public interface IDict { }
 }

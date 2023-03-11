@@ -4,7 +4,7 @@ using System.Xml;
 namespace JMDict
 {
     /// <summary>
-    /// Class for prarsing <see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> dictionaries.
+    /// Class for prarsing <see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> dictionaries.
     /// </summary>
     public class DictParser
     {
@@ -16,38 +16,38 @@ namespace JMDict
 
         /// <summary>
         /// <para>Opens a filestream for the XML file and returns it as a chosen dictionary class object. The file stream is closed before return.</para>
-        /// Requires a class that implements <see cref="IDict"/> interface (<see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>).
+        /// Requires a class that implements <see cref="IDict"/> interface (<see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>).
         /// </summary>
         /// <param name="filePath">Path to the XML file.</param>
-        /// <typeparam name="IDict"><see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
+        /// <typeparam name="IDict"><see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
         public IDict ParseXml<IDict>(string filePath)
         {
             using FileStream fileStream = new(filePath, FileMode.Open);
             using XmlReader xmlReader = XmlReader.Create(fileStream, _xmlReaderSettings);
-            return DeserializeJmdict<IDict>(xmlReader);
+            return DeserializeJMDict<IDict>(xmlReader);
         }
 
         /// <summary>
         /// <para>Receives a stream for a appropriate XML file and returns it as the chosen dictionary class object.</para>
-        /// Requires a class that implements <see cref="IDict"/> interface (<see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>).
+        /// Requires a class that implements <see cref="IDict"/> interface (<see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>).
         /// </summary>
         /// <param name="fileStream">Stream with a appropriate XML file.</param>
-        /// <typeparam name="IDict"><see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
+        /// <typeparam name="IDict"><see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
         public IDict ParseXml<IDict>(Stream fileStream)
         {
             using (XmlReader xmlReader = XmlReader.Create(fileStream, _xmlReaderSettings))
             {
-                return DeserializeJmdict<IDict>(xmlReader);
+                return DeserializeJMDict<IDict>(xmlReader);
             }
         }
 
         /// <summary>
         /// <para>Method for deserialising the input XML file.</para>
-        /// Requires a class that implements <see cref="IDict"/> interface. (<see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>)
+        /// Requires a class that implements <see cref="IDict"/> interface. (<see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/>)
         /// </summary>
         /// <param name="xmlReader"><see cref="XmlReader"/>  instance containing a appropriate xml file stream.</param>
-        /// <typeparam name="IDict"><see cref="JmDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
-        private static IDict DeserializeJmdict<IDict>(XmlReader xmlReader)
+        /// <typeparam name="IDict"><see cref="JMDict"/>, <see cref="Kanjidic"/> or <see cref="Jmnedict"/> implements <see cref="IDict"/></typeparam>
+        private static IDict DeserializeJMDict<IDict>(XmlReader xmlReader)
         {
             var xmlSerializer = new XmlSerializer(typeof(IDict));
             try

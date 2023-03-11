@@ -8,7 +8,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>JMDict</Title>
-    <PackageTags>jmdict; japanese; kanjidic</PackageTags>
+    <PackageTags>JMDict; japanese; kanjidic</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>  
