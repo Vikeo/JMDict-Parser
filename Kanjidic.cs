@@ -500,7 +500,7 @@ namespace JMDict
         /// information for the kanji in different languages.
         /// </summary>
         [XmlElement("rmgroup")]
-        public ReadingMeaningGroup? ReadingMeaningGroups { get; set; }
+        public ReadingMeaningGroup? ReadingMeaningGroup { get; set; }
 
         /// <summary>
         /// Japanese readings that are now only associated with names.
