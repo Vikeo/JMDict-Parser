@@ -1,4 +1,4 @@
-name: CIp
+name: Build and Publish
 
 on:
   create:
@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
