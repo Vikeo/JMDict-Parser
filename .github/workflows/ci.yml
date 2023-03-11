@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - release/**
   pull_request:
     branches:
       - main
@@ -15,7 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BUILD_CONFIG: Release
       SOLUTION: JMDict.sln
 
     steps:
@@ -23,9 +23,7 @@ jobs:
 
       - name: Get Build Version
         id: get_version
-        run: |
-          echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p')"
-        shell: bash
+        run: echo "VERSION=$(echo ${GITHUB_REF#refs/heads/release/})" >> $GITHUB_ENV
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
@@ -39,10 +37,10 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build /p:Version=${{ env.VERSION }} $SOLUTION --configuration Release --no-restore
 
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
-        run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
-          NUGET_VERSION: ${{ steps.get_version.outputs.version }}
+          NUGET_VERSION: ${{ env.VERSION }}
