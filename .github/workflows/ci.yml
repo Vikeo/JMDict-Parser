@@ -1,4 +1,4 @@
-name: CI
+name: CIp
 
 on:
   create:
@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - main
@@ -19,6 +20,8 @@ jobs:
       SOLUTION: JMDict.sln
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Get Build Version
         id: get_version
         run: |
