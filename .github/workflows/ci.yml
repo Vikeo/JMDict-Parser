@@ -18,13 +18,12 @@ jobs:
     env:
       BUILD_CONFIG: Release
       SOLUTION: JMDict.sln
-      VERSION: 0.0.2
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Print
-        run: echo ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p' >> $GITHUB_ENV
+        run: echo "VERSION=${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p'" ${{ github.ref }} | sed -n -e 's/^refs\/tags\/v\{0,1\}\(.*\)$/\1/p' >> $GITHUB_ENV
 
       - name: Get Build Version
         id: get_version
