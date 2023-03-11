@@ -94,7 +94,7 @@ namespace JMDict
         /// and instructional books on kanji.
         /// </summary>
         [XmlElement("dic_number")]
-        public List<KanjidicDicNumber>? DictionaryNumbers { get; set; }
+        public KanjidicDicNumber? DictionaryNumber { get; set; }
 
         /// <summary>
         /// These codes contain information relating to the glyph, and can be used
@@ -500,7 +500,7 @@ namespace JMDict
         /// information for the kanji in different languages.
         /// </summary>
         [XmlElement("rmgroup")]
-        public List<ReadingMeaningGroup>? ReadingMeaningGroups { get; set; }
+        public ReadingMeaningGroup? ReadingMeaningGroups { get; set; }
 
         /// <summary>
         /// Japanese readings that are now only associated with names.
