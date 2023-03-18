@@ -48,7 +48,7 @@ jobs:
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
         run: |
-          nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
+
           # Get the package filename
           PACKAGE=$(ls **/*.nupkg)
 
@@ -67,3 +67,5 @@ jobs:
               -H "Content-Type: application/zip" \
               --data-binary @"$PACKAGE" \
               "$UPLOAD_URL?name=$(basename "$PACKAGE")"
+
+          nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
