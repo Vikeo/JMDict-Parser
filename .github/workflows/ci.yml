@@ -59,21 +59,14 @@ jobs:
         env:
           NUGET_VERSION: ${{ env.VERSION }}
 
-      - name: Check publish success and create release
-        if: startsWith(github.ref, 'refs/heads/release')
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          NUGET_VERSION: ${{ env.VERSION }}
-        uses: actions/github-script@v4
+          GITHUB_TOKEN: ${{ secrets.JMDICT_GITHUB_TOKEN }}
         with:
-          script: |
-            const response = await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: env.NUGET_VERSION,
-              name: `Release ${env.NUGET_VERSION}`,
-              body: `Release ${env.NUGET_VERSION} is now available at https://www.nuget.org/packages/<PACKAGE_NAME>/${env.NUGET_VERSION}`,
-              draft: false,
-              prerelease: false,
-            });
-            console.log(response.data.html_url);
-          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ env.NUGET_VERSION }}
+          release_name: Release ${{ env.NUGET_VERSION }}
+          body: Release ${{ env.NUGET_VERSION }} is now available at https://www.nuget.org/packages/<PACKAGE_NAME>/${{ env.NUGET_VERSION }}
+          draft: false
+          prerelease: false
