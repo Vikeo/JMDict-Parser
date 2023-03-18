@@ -20,7 +20,7 @@ namespace JMDict
         /// least one reading element and one sense element.Others are optional.
         /// </summary>
         [XmlElement("entry")]
-        public List<JmnedictEntry>? Entries { get; set; }
+        public List<JmnedictEntry> Entries { get; set; } = new();
     }
 
     /// <summary>

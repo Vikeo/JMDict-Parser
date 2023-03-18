@@ -19,14 +19,14 @@ namespace JMDict
         /// about the version of the file
         /// </summary>
         [XmlElement("header")]
-        public KanjidicHeader? Header { get; set; }
+        public KanjidicHeader Header { get; set; } = new();
 
         /// <summary>
         /// The character element contains information about a single kanji
         /// character.
         /// </summary>
         [XmlElement("character")]
-        public List<KanjidicCharacter>? Characters { get; set; }
+        public List<KanjidicCharacter> Characters { get; set; } = new();
     }
 
     /// <summary>
@@ -105,8 +105,6 @@ namespace JMDict
         /// </summary>
         [XmlElement("query_code")]
         public KanjidicQueryCode? QueryCode { get; set; }
-
-
 
         /// <summary>
         /// The readings for the kanji in several languages, and the meanings, also
