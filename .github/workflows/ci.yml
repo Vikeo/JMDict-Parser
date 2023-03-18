@@ -47,6 +47,25 @@ jobs:
 
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
+        id: publish
         run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
           NUGET_VERSION: ${{ env.VERSION }}
+
+      - name: Check publish success and create release
+        if: success() && startsWith(github.ref, 'refs/heads/release')
+        uses: actions/github-script@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const response = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: env.NUGET_VERSION,
+              name: `Release ${env.NUGET_VERSION}`,
+              body: `Release ${env.NUGET_VERSION} is now available at https://www.nuget.org/packages/<PACKAGE_NAME>/${env.NUGET_VERSION}`,
+              draft: false,
+              prerelease: false,
+            });
+            console.log(response.data.html_url);
