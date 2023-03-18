@@ -7,8 +7,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/Vikeo/JMDict-Parser</RepositoryUrl>
     <Title>JMDict</Title>
-    <PackageTags>JMDict; japanese; kanjidic</PackageTags>
+    <PackageTags>JMDict; japanese; kanjidic: jmnedict</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
