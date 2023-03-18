@@ -48,15 +48,8 @@ jobs:
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
         run: |
-
-          # Print directory tree for troubleshooting
-          ls -R
-
           # Get the package filename
-          PACKAGE=$(find . -name "*.nupkg")
-
-          # Get the package filename
-          PACKAGE=$(find . -name "*.nupkg")
+          PACKAGE=$(find ./bin/Release -name "*.nupkg")
 
           # Create the release on GitHub
           RESPONSE=$(curl -s -X POST \
