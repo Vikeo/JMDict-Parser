@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-      - release/**
   pull_request:
+    types: [closed]
     branches:
       - main
 
@@ -42,14 +42,14 @@ jobs:
         run: dotnet build /p:Version=${{ env.VERSION }} $SOLUTION --configuration Release --no-restore
 
       - name: Publish
-        if: startsWith(github.ref, 'refs/heads/release')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release')
         id: publish
         run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
           NUGET_VERSION: ${{ env.VERSION }}
 
       - name: Create Release
-        if: success() && startsWith(github.ref, 'refs/heads/release')
+        if: success() && github.event_name == 'pull_request' && github.event.action == 'closed' && startsWith(github.head_ref, 'release/')
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
