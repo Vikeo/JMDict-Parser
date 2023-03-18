@@ -1,4 +1,4 @@
-name: Build and Publishs
+name: Build and Publish
 
 on:
   create:
@@ -45,17 +45,10 @@ jobs:
       - name: Build
         run: dotnet build /p:Version=${{ env.VERSION }} $SOLUTION --configuration Release --no-restore
 
-      # - name: Publish
-      #   if: startsWith(github.ref, 'refs/heads/release')
-      #   id: publish
-      #   run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
-      #   env:
-      #     NUGET_VERSION: ${{ env.VERSION }}
-
-      - name: Publish (mock)
+      - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
         id: publish
-        run: echo "Package published successfully."
+        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
           NUGET_VERSION: ${{ env.VERSION }}
 
