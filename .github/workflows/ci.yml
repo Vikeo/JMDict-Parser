@@ -1,4 +1,4 @@
-name: Build and Publish
+name: Build and Publishs
 
 on:
   create:
@@ -47,17 +47,6 @@ jobs:
 
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
-        run: |
-          # Get the package filename
-          PACKAGE=$(find ./bin/Release -name '*.nupkg' -type f -print0 | xargs -0 ls -t | head -1)
-
-          # Create the release on GitHub
-          RELEASE_PAYLOAD="{\"tag_name\":\"v${{ env.VERSION }}\",\"name\":\"Release ${{ env.VERSION }}\",\"body\":\"Release ${{ env.VERSION }}\",\"draft\":false,\"prerelease\":false}"
-          RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "$RELEASE_PAYLOAD" https://api.github.com/repos/${{ github.repository }}/releases)
-
-          # Get the upload URL from the release response
-          UPLOAD_URL=$(echo "$RESPONSE" | jq -r '.upload_url | split("{")[0]')
-
-          # Upload the NuGet package as an asset to the release
-          UPLOAD_PAYLOAD="{\"name\":\"$(basename "$PACKAGE")\"}"
-          UPLOAD_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/octet-stream" --data-binary @"$PACKAGE" "${UPLOAD_URL%@*}?${UPLOAD_PAYLOAD@sh}")
+        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
+        env:
+          NUGET_VERSION: ${{ env.VERSION }}
