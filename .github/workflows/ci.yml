@@ -1,4 +1,4 @@
-name: Build and Publishs
+name: Build and Publish
 
 on:
   create:
@@ -48,6 +48,12 @@ jobs:
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
         run: |
+
+          # Print directory tree for troubleshooting
+          ls -R
+
+          # Get the package filename
+          PACKAGE=$(find . -name "*.nupkg")
 
           # Get the package filename
           PACKAGE=$(find . -name "*.nupkg")
