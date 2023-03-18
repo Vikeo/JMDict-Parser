@@ -65,8 +65,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.JMDICT_GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.NUGET_VERSION }}
+          tag_name: release
           release_name: Release ${{ env.NUGET_VERSION }}
-          body: Release ${{ env.NUGET_VERSION }} is now available at https://www.nuget.org/packages/<PACKAGE_NAME>/${{ env.NUGET_VERSION }}
+          body: Release ${{ env.NUGET_VERSION }} is now available at https://www.nuget.org/packages/JMDict
           draft: false
           prerelease: false
