@@ -68,3 +68,13 @@ foreach (var reading in readingsMeaningKanji)
     Console.WriteLine(JsonConvert.SerializeObject(reading, Formatting.Indented));
 }
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## TODO
+
+- Add tests
+- Check for a newer version of the dictionaries in the `ParseXml` method.
+- Check for newer version of the dictionaries in the pipeline.
