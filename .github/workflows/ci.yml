@@ -64,3 +64,8 @@ jobs:
           prerelease: false
           name: Release ${{ env.VERSION }}
           tag_name: v${{ env.VERSION }}
+
+      - name: Delete Release Branch
+        if: success() && startsWith(github.ref, 'refs/heads/release')
+        run: |
+          git push origin --delete ${{ github.ref }}
