@@ -19,15 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get Build Version
-        id: get_version
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/release/"* ]]; then
-            echo "VERSION=$(echo ${GITHUB_REF#refs/heads/release/})" >> $GITHUB_ENV
-          else
-            echo "VERSION=1.0.0" >> $GITHUB_ENV
-          fi
-
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.1.1
 
@@ -38,6 +29,15 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+
+      - name: Get Build Version
+        id: get_version
+        run: |
+          if [[ "${{ github.event.pull_request.head.ref }}" == "release/"* ]]; then
+            echo "VERSION=$(echo ${GITHUB_HEAD_REF#release/})" >> $GITHUB_ENV
+          else
+            echo "VERSION=1.0.0" >> $GITHUB_ENV
+          fi
 
       - name: Build
         run: dotnet build /p:Version=${{ env.VERSION }} $SOLUTION --configuration Release --no-restore
