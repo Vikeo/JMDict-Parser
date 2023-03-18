@@ -47,6 +47,23 @@ jobs:
 
       - name: Publish
         if: startsWith(github.ref, 'refs/heads/release')
-        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
-        env:
-          NUGET_VERSION: ${{ env.VERSION }}
+        run: |
+          nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
+          # Get the package filename
+          PACKAGE=$(ls **/*.nupkg)
+
+          # Create the release on GitHub
+          RESPONSE=$(curl -s -X POST \
+              -H "Authorization: Bearer ${{ secrets.JMDICT_GITHUB_TOKEN }}" \
+              -d '{"tag_name": "v'"${{ env.VERSION }}"'", "name": "Release '"${{ env.VERSION }}"'", "body": "Release '"${{ env.VERSION }}"'", "draft": false, "prerelease": false}' \
+              https://api.github.com/repos/${{ github.repository }}/releases)
+
+          # Get the upload URL from the release response
+          UPLOAD_URL=$(echo $RESPONSE | jq -r '.upload_url' | sed 's/{.*}//')
+
+          # Upload the NuGet package as an asset to the release
+          curl -s -X POST \
+              -H "Authorization: Bearer ${{ secrets.JMDICT_GITHUB_TOKEN }}" \
+              -H "Content-Type: application/zip" \
+              --data-binary @"$PACKAGE" \
+              "$UPLOAD_URL?name=$(basename "$PACKAGE")"
