@@ -60,13 +60,14 @@ jobs:
           NUGET_VERSION: ${{ env.VERSION }}
 
       - name: Create Release
+        if: success() && startsWith(github.ref, 'refs/heads/release')
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.JMDICT_GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.NUGET_VERSION }}
-          release_name: Release ${{ env.NUGET_VERSION }}
-          body: Release ${{ env.NUGET_VERSION }} is now available at https://www.nuget.org/packages/JMDict
+          body: Release ${{ env.VERSION }} is now available at https://www.nuget.org/packages/JMDict
           draft: false
           prerelease: false
+          name: Release ${{ env.VERSION }}
+          tag_name: v${{ env.VERSION }}
