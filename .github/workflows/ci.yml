@@ -49,7 +49,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/release')
         run: |
           # Get the package filename
-          PACKAGE=$(find ./bin/Release -name "*.nupkg")
+          PACKAGE=$(ls ./bin/Release/*.nupkg)
 
           # Create the release on GitHub
           RESPONSE=$(curl -s -X POST \
