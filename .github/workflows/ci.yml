@@ -60,10 +60,10 @@ jobs:
           NUGET_VERSION: ${{ env.VERSION }}
 
       - name: Check publish success and create release
-        if: success() && startsWith(github.ref, 'refs/heads/release')
-        uses: actions/github-script@v4
+        if: startsWith(github.ref, 'refs/heads/release')
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_VERSION: ${{ env.VERSION }}
+        uses: actions/github-script@v4
         with:
           script: |
             const response = await github.rest.repos.createRelease({
@@ -76,3 +76,4 @@ jobs:
               prerelease: false,
             });
             console.log(response.data.html_url);
+          token: ${{ secrets.GITHUB_TOKEN }}
