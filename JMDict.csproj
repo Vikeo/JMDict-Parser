@@ -11,12 +11,24 @@
     <Title>JMDict</Title>
     <PackageTags>JMDict; japanese; kanjidic: jmnedict</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Authors>Viktor Rådberg</Authors>
+    <Description>A simple parser written in Dotnet 7 for parsing the XML files for JMDict, JMnedict and KANJIDIC2.</Description>
+    <PackageIcon>logo.jpg</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Vikeo/JMDict-Parser</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>  
-      <None Include="README.md" Pack="true" PackagePath="\"/>
-      <None Include="LICENSE.md" Pack="true" PackagePath="\"/>
-      <None Include="CHANGELOG.md" Pack="true" PackagePath="\"/>
+      <None Include="README.md" Pack="true" PackagePath="\" />
+      <None Include="LICENSE.md" Pack="true" PackagePath="\" />
+      <None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="logo.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
