@@ -66,6 +66,3 @@ jobs:
               -H "Content-Type: application/zip" \
               --data-binary "@$PACKAGE" \
               "$UPLOAD_URL?name=$(basename "$PACKAGE")"
-
-
-          nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
