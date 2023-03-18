@@ -11,7 +11,8 @@ namespace JMDict
         private readonly XmlReaderSettings _xmlReaderSettings = new()
         {
             DtdProcessing = DtdProcessing.Parse,
-            MaxCharactersFromEntities = 0
+            MaxCharactersFromEntities = 0,
+            Async = true
         };
 
         /// <summary>

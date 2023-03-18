@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace JMDict
 {
     /// <summary>
-    /// The root JMDict element.
+    /// The root JMdict element.
     /// </summary>
     [Serializable, XmlRoot("JMdict")]
-    public class JMDict : IDict
+    public class Jmdict : IDict
     {
         /// <summary>
         /// <para>Entries consist of kanji elements, reading elements,
@@ -20,7 +15,7 @@ namespace JMDict
         /// sense element. Others are optional.
         /// </summary>
         [XmlElement("entry")]
-        public JMDictEntry[] Entries { get; set; }
+        public List<JmdictEntry> Entries { get; set; } = new();
     }
 
     /// <summary>
@@ -29,7 +24,7 @@ namespace JMDict
     /// Each entry must have at least one reading element and one 
     /// sense element. Others are optional.
     /// </summary>
-    public class JMDictEntry
+    public class JmdictEntry
     {
         /// <summary>
         /// A unique numeric sequence number for each entry
@@ -50,7 +45,7 @@ namespace JMDict
         /// cross-reference field associated with the sense element.
         /// </summary>
         [XmlElement("k_ele")]
-        public JMDictKanji[] Kanji { get; set; }
+        public List<JmdictKanji>? Kanji { get; set; }
 
         /// <summary>
         /// <para>
@@ -63,7 +58,7 @@ namespace JMDict
         /// entirely in kana, these elements will define the entry.
         /// </summary>
         [XmlElement("r_ele")]
-        public JMDictReading[] Readings { get; set; }
+        public List<JmdictReading>? Readings { get; set; }
 
         /// <summary>
         /// The sense element will record the translational equivalent
@@ -72,7 +67,7 @@ namespace JMDict
         /// sense elements will be employed.
         /// </summary>
         [XmlElement("sense")]
-        public JMDictSense[] SenseElements { get; set; }
+        public List<JmdictSense>? SenseElements { get; set; }
     }
 
     /// <summary>
@@ -90,7 +85,7 @@ namespace JMDict
     /// fields. Synonyms are not included; they may be indicated in the
     /// cross-reference field associated with the sense element.
     /// </summary>
-    public class JMDictKanji
+    public class JmdictKanji
     {
         /// <summary>
         /// <para>
@@ -103,7 +98,7 @@ namespace JMDict
         /// in exceptional cases, letters from other alphabets.
         /// </summary>
         [XmlElement("keb")]
-        public string Expression { get; set; }
+        public string? Expression { get; set; }
 
         /// <summary>
         /// This is a coded information field related specifically to the
@@ -111,7 +106,7 @@ namespace JMDict
         /// aspect, such as okurigana irregularity.
         /// </summary>
         [XmlElement("ke_inf")]
-        public string[] Information { get; set; }
+        public List<string>? Information { get; set; }
 
         /// <summary>
         /// <para>
@@ -158,10 +153,19 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("ke_pri")]
-        public string[] Priorities { get; set; }
+        public List<string>? Priorities { get; set; }
     }
 
-    public class JMDictReading
+    /// <summary>
+    /// The reading element.
+    /// <para>
+    /// this element content is restricted to kana and related
+    /// characters such as chouon and kurikaeshi.Kana usage will be
+    /// consistent between the keb and reb elements; e.g. if the keb
+    /// contains katakana, so too will the reb.
+    /// </para>
+    /// </summary>
+    public class JmdictReading
     {
         /// <summary>
         /// <para>
@@ -170,7 +174,7 @@ namespace JMDict
         /// 
         /// </summary>
         [XmlElement("reb")]
-        public string Reading { get; set; }
+        public string? Reading { get; set; }
 
         /// <summary>
         /// <para>
@@ -184,7 +188,7 @@ namespace JMDict
         /// entirely in kana, these elements will define the entry.
         /// </summary>
         [XmlElement("re_nokanji")]
-        public string NoKanji { get; set; }
+        public string? NoKanji { get; set; }
 
         /// <summary>
         /// <para>
@@ -196,7 +200,7 @@ namespace JMDict
         /// must exactly match those of one of the keb elements.
         /// </summary>
         [XmlElement("re_restr")]
-        public string[]? Restrictions { get; set; }
+        public List<string>? Restrictions { get; set; }
 
         /// <summary>
         /// General coded information pertaining to the specific reading.
@@ -205,7 +209,7 @@ namespace JMDict
         /// 
         /// </summary>
         [XmlElement("re_inf")]
-        public string[] Information { get; set; }
+        public List<string>? Information { get; set; }
 
         /// <summary>
         /// <para>
@@ -252,17 +256,25 @@ namespace JMDict
         /// </para>
         /// </summary>
         [XmlElement("re_pri")]
-        public string[] Priorities { get; set; }
+        public List<string>? Priorities { get; set; }
     }
 
+    /// <summary>
+    /// The Source element.
+    /// <para>
+    /// This element records the information about the source
+    /// language(s) of a loan-word/gairaigo.If the source language is other
+    /// than English, the language is indicated by the xml:lang attribute.
+    /// The element value (if any) is the source word or phrase.
+    /// </para>
     /// </summary>
-    public class JMDictSource
+    public class JmdictSource
     {
         /// <summary>
         /// The content of the source item.
         /// </summary>
         [XmlText]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         /// <summary>
         /// <para>
@@ -274,7 +286,7 @@ namespace JMDict
         /// English) is the default value. The bibliographic (B) codes are used.
         /// </summary>
         [XmlAttribute("lang")]
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// <para>
@@ -283,10 +295,10 @@ namespace JMDict
         /// loanword.
         /// </para>
         /// If absent, it will have the implied value of "full".
-        // Otherwise it will contain "part".
+        /// Otherwise it will contain "part".
         /// </summary>
         [XmlAttribute("ls_type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         /// <summary>
         /// The ls_wasei attribute indicates that the Japanese word
@@ -295,16 +307,25 @@ namespace JMDict
         /// indicate "waseieigo".
         /// </summary>
         [XmlAttribute("ls_wasei")]
-        public string Wasei { get; set; }
+        public string? Wasei { get; set; }
     }
 
-    public class JMDictGlossary
+    /// <summary>
+    /// The Glossary element.
+    /// <para>
+    /// Within each sense will be one or more "glosses", i.e.
+    /// target-language words or phrases which are equivalents to the
+    /// Japanese word.This element would normally be present, however it
+    /// may be omitted in entries which are purely for a cross-reference.
+    /// </para>
+    /// </summary>
+    public class JmdictGlossary
     {
         /// <summary>
         /// The content of the glossary item.
         /// </summary>
         [XmlText]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         /// <summary>
         /// <para>
@@ -316,7 +337,7 @@ namespace JMDict
         /// is the default value.
         /// </summary>
         [XmlAttribute("lang")]
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// <para>
@@ -327,7 +348,7 @@ namespace JMDict
         /// not relevant or has yet to be provided.
         /// </summary>
         [XmlAttribute("g_gend")]
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
 
         /// <summary>
         /// <para>
@@ -340,24 +361,33 @@ namespace JMDict
         /// explanation of the meaning.
         /// </summary>
         [XmlAttribute("g_type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
     }
 
-    public class JMDictSense
+    /// <summary>
+    /// The Sense element.
+    /// <para>
+    /// The sense element will record the translational equivalent
+    /// of the Japanese word, plus other related information.Where there
+    /// are several distinctly different meanings of the word, multiple
+    /// sense elements will be employed.
+    /// </para>
+    /// </summary>
+    public class JmdictSense
     {
         /// <summary>
         /// This element, if present, indicate that the sense is restricted
         /// to the lexeme represented by the keb and/or reb.
         /// </summary>
         [XmlElement("stagk")]
-        public string[] RestrictedKanji { get; set; }
+        public List<string>? RestrictedKanji { get; set; }
 
         /// <summary>
         /// This element, if present, indicate that the sense is restricted
         /// to the lexeme represented by the keb and/or reb.
         /// </summary>
         [XmlElement("stagr")]
-        public string[] RestrictedReadings { get; set; }
+        public List<string>? RestrictedReadings { get; set; }
 
         /// <summary>
         /// <para>
@@ -372,7 +402,7 @@ namespace JMDict
         /// cross-reference.
         /// </summary>
         [XmlElement("xref")]
-        public string[] References { get; set; }
+        public List<string>? References { get; set; }
 
         /// <summary>
         /// <para>
@@ -383,7 +413,7 @@ namespace JMDict
         /// must exactly match that of a keb or reb element in another entry.
         /// </summary>
         [XmlElement("ant")]
-        public string[] Antonyms { get; set; }
+        public List<string>? Antonyms { get; set; }
 
         /// <summary>
         /// <para>
@@ -395,7 +425,7 @@ namespace JMDict
         /// later senses unless there is a new part-of-speech indicated.
         /// </summary>
         [XmlElement("pos")]
-        public string[] PartsOfSpeech { get; set; }
+        public List<string>? PartsOfSpeech { get; set; }
 
         /// <summary>
         /// <para>
@@ -405,7 +435,7 @@ namespace JMDict
         /// Entity coding for specific fields of application.        
         /// </summary>
         [XmlElement("field")]
-        public string[] Fields { get; set; }
+        public List<string>? Fields { get; set; }
 
         /// <summary>
         /// This element is used for other relevant information about
@@ -413,7 +443,7 @@ namespace JMDict
         /// apply to several senses.
         /// </summary>
         [XmlElement("misc")]
-        public string[] Misc { get; set; }
+        public List<string>? Misc { get; set; }
 
         /// <summary>
         /// <para>
@@ -425,14 +455,14 @@ namespace JMDict
         /// The element value (if any) is the source word or phrase.
         /// </summary>
         [XmlElement("lsource")]
-        public JMDictSource[] SourceLanguages { get; set; }
+        public List<JmdictSource>? SourceLanguages { get; set; }
 
         /// <summary>
         /// For words specifically associated with regional dialects in
         /// Japanese, the entity code for that dialect, e.g. ksb for Kansaiben.
         /// </summary>
         [XmlElement("dial")]
-        public string[] Dialects { get; set; }
+        public List<string>? Dialects { get; set; }
 
         /// <summary>
         /// <para>
@@ -444,7 +474,7 @@ namespace JMDict
         /// regional variations, etc.
         /// </summary>
         [XmlElement("s_inf")]
-        public string[] Information { get; set; }
+        public List<string>? Information { get; set; }
 
         /// <summary>
         /// <para>
@@ -456,64 +486,81 @@ namespace JMDict
         /// may be omitted in entries which are purely for a cross-reference.
         /// </summary>
         [XmlElement("gloss")]
-        public JMDictGlossary[] Glossary { get; set; }
+        public List<JmdictGlossary>? Glossary { get; set; }
 
         /// <summary>
         /// Some JMDict entries can contain 0 or more examples
         /// </summary>
         [XmlElement("example")]
-        public JMDictExample[] Examples { get; set; }
+        public List<JmdictExample>? Examples { get; set; }
     }
 
-    public class JMDictExample
+    /// <summary>
+    /// The Example element.
+    /// <para>
+    /// The example elements contain a Japanese sentence using the term
+    /// associated with the entry, and one or more translations of that sentence.
+    /// Within the element, the ex_srce element will indicate the source of the
+    /// sentences(typically the sequence number in the Tatoeba Project), the
+    /// ex_text element will contain the form of the term in the Japanese
+    /// sentence, and the ex_sent elements contain the example sentences.
+    /// </para>
+    /// </summary>
+    public class JmdictExample
     {
         /// <summary>
         /// Each example has a Srce element that indicates the source of the example
         /// the source is typically the  Tatoeba Project
         /// </summary>
         [XmlElement("ex_srce")]
-        public JMDictExampleSource ExampleSource { get; set; }
+        public JmdictExampleSource? ExampleSource { get; set; }
 
         /// <summary>
         /// The term associated with this example
         /// </summary>
         [XmlElement("ex_text")]
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         /// <summary>
         /// Contains the Example sentences
         /// </summary>
         [XmlElement("ex_sent")]
-        public JMDictExampleSentence[] Sentences { get; set; }
+        public List<JmdictExampleSentence>? Sentences { get; set; }
     }
 
-    public class JMDictExampleSource
+    /// <summary>
+    /// The Example Source element
+    /// </summary>
+    public class JmdictExampleSource
     {
         /// <summary>
         /// The id of the example for the source
         /// </summary>
         [XmlText]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         /// <summary>
         /// The source type (i.e. 'tat' for tatoeba)
         /// </summary>
         [XmlAttribute("exsrc_type")]
-        public string SourceType { get; set; }
+        public string? SourceType { get; set; }
     }
 
-    public class JMDictExampleSentence
+    /// <summary>
+    /// The Example sentence element
+    /// </summary>
+    public class JmdictExampleSentence
     {
         /// <summary>
         /// The language of the example sentence
         /// </summary>
         [XmlAttribute("lang")]
-        public string Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// The example sentence text
         /// </summary>
         [XmlText]
-        public string Text { get; set; }
+        public string? Text { get; set; }
     }
 }
