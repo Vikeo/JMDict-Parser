@@ -5,7 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    types: [closed]
+    types: [closed, opened]
     branches:
       - main
 
@@ -42,7 +42,7 @@ jobs:
         run: dotnet build /p:Version=${{ env.VERSION }} $SOLUTION --configuration Release --no-restore
 
       - name: Publish
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release')
+        if: success() && github.event_name == 'pull_request' && github.event.action == 'closed' && startsWith(github.ref, 'refs/heads/release')
         id: publish
         run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
         env:
