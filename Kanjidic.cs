@@ -567,7 +567,7 @@ namespace JMDict
         /// The value of the reading element according to the type of reading.
         /// </summary>
         [XmlText]
-        public string? Value { get; set; }
+        public string? Text { get; set; }
 
         /// <summary>
         /// If present, will indicate with

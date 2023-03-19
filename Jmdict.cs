@@ -160,7 +160,7 @@ namespace JMDict
     /// The reading element.
     /// <para>
     /// this element content is restricted to kana and related
-    /// characters such as chouon and kurikaeshi.Kana usage will be
+    /// characters such as chouon and kurikaeshi. Kana usage will be
     /// consistent between the keb and reb elements; e.g. if the keb
     /// contains katakana, so too will the reb.
     /// </para>
@@ -168,13 +168,10 @@ namespace JMDict
     public class JmdictReading
     {
         /// <summary>
-        /// <para>
-        /// 
-        /// </para>
-        /// 
+        /// This element will contain a word or short phrase in Japanese kana.
         /// </summary>
         [XmlElement("reb")]
-        public string? Reading { get; set; }
+        public string? Kana { get; set; }
 
         /// <summary>
         /// <para>
