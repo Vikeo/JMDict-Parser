@@ -142,12 +142,12 @@ namespace JMDict
     {
         /// <summary>
         /// This element content is restricted to kana and related
-        /// characters such as chouon and kurikaeshi.Kana usage will be
+        /// characters such as chouon and kurikaeshi. Kana usage will be
         /// consistent between the keb and reb elements; e.g. if the keb
         /// contains katakana, so too will the reb.
         /// </summary>
         [XmlElement("reb")]
-        public string? Reading { get; set; }
+        public string? Kana { get; set; }
 
         /// <summary>
         /// This element is used to indicate when the reading only applies
